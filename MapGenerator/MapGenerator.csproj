@@ -49,7 +49,7 @@
       <Project>{35253ce1-c864-4cd3-8249-4d1319748e8f}</Project>
       <Name>FNA</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\TestingFNA\LaCuca\LaCuca.csproj">
+    <ProjectReference Include="..\..\LaCuca\LaCuca.csproj">
       <Project>{020f3031-fffd-4038-920b-44043cd6fcd8}</Project>
       <Name>LaCuca</Name>
     </ProjectReference>
