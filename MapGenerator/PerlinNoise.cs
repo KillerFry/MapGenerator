@@ -60,10 +60,23 @@ namespace MapGenerator
             {
                 for (int y = 0; y < bitmap.Height; y++)
                 {
-                    double v = (OctavePerlin(x, y, -0.5, 1, 1));
+
+                    //double v = (OctavePerlin(x * widthDivisor, y * heightDivisor, 1.89f, 16, 0.75f));
+
+                    //double r = (OctavePerlin(x * widthDivisor, y * heightDivisor, 0.5f, 4, 2f));
+                    //double g = (OctavePerlin(x * widthDivisor, y * heightDivisor, 0.5f, 16, 2.75f));
+                    //double b = (OctavePerlin(x * widthDivisor, y * heightDivisor, 0.5f, 8, 2.75f));
+                    double v = Perlin(8 * x * widthDivisor, 8 * y * widthDivisor, 0) * .6 +
+                        Perlin(16 * x * widthDivisor, 16 * y * widthDivisor, 0) * .3 +
+                        Perlin(32 * x * widthDivisor, 32 * y * widthDivisor, 0) * .1;
                     //v = Math.Min(1, Math.Max(0, v));
                     //byte b = (byte)(v * 255);
-                    System.Drawing.Color color = System.Drawing.Color.FromArgb(v, v, v);
+                    v = Math.Pow(v, 0.93);
+                    int s = Math.Min(Math.Max((int)(255 * v), 0), 255);
+                    //int r1 = Math.Min(Math.Max((int)(255 * r), 0), 255);
+                    //int g1 = Math.Min(Math.Max((int)(255 * g), 0), 255);
+                    //int b1 = Math.Min(Math.Max((int)(255 * b), 0), 255);
+                    System.Drawing.Color color = System.Drawing.Color.FromArgb(s, s, s);
 
                     bitmap.SetPixel(x, y, color);
                 }
