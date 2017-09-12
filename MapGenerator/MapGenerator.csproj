@@ -41,8 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BSP\BSPGenerator.cs" />
+    <Compile Include="BSP\BSPMapNode.cs" />
     <Compile Include="DrunkCaveGenerator.cs" />
     <Compile Include="GoLGenerator.cs" />
+    <Compile Include="Map.cs" />
     <Compile Include="PerlinNoise.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
