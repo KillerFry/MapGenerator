@@ -25,7 +25,7 @@ namespace MapGenerator.BSP
         public BSPMapNode RightChild { get; private set; }
 
         #endregion
-
+                
         public BSPMapNode(BSPMapNode parent, int startX, int startY, int nodeWidth, int nodeHeight, Map map)
         {
             if (parent is null)
@@ -62,6 +62,11 @@ namespace MapGenerator.BSP
             
         }
 
+        public void GenerateMap(Action<BSPMapNode> mapGenerator)
+        {
+
+        }
+                
         public void GenerateMap()
         {
             if (IsLeaf)

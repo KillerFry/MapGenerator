@@ -31,9 +31,15 @@ namespace MapGenerator.BSP
             }
             else
             {
-                node.LeftChild.GenerateMap();
+                node.LeftChild.GenerateMap(creaMapa);
+                //node.LeftChild.GenerateMap();
                 node.RightChild.GenerateMap();
             }
+        }
+
+        private static void creaMapa(BSPMapNode node)
+        {
+            DrunkCaveGenerator.GenerateMap(node.Width, node.Height, 30);
         }
     }
 }

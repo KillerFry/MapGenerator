@@ -221,6 +221,13 @@ namespace MapGenerator
             lastCell = cell;
         }
         
+        public static int[,] UpdateMap(int di, int[,] map)
+        {
+            Map = map;
+            UpdateMap(di);
+            return Map;
+        }
+
         public static int[,] UpdateMap(int di)
         {
             TotalCells = Width * Height;
