@@ -33,13 +33,23 @@ namespace MapGenerator.BSP
             {
                 node.LeftChild.GenerateMap(creaMapa);
                 //node.LeftChild.GenerateMap();
-                node.RightChild.GenerateMap();
+                node.RightChild.GenerateMap(creaMapa);
             }
         }
 
         private static void creaMapa(BSPMapNode node)
         {
-            DrunkCaveGenerator.GenerateMap(node.Width, node.Height, 30);
+            if (node.IsLeaf)
+            {
+                DrunkCaveGenerator.GenerateMap(node, node.Width, node.Height, 30);
+            }
+            else
+            {
+                node.LeftChild.GenerateMap(creaMapa);
+                node.RightChild.GenerateMap(creaMapa);
+            }
+
         }
+
     }
 }

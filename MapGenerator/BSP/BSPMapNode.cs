@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MapGenerator.BSP
 {
-    class BSPMapNode
+    public class BSPMapNode
     {
         #region Properties
 
@@ -64,25 +64,12 @@ namespace MapGenerator.BSP
 
         public void GenerateMap(Action<BSPMapNode> mapGenerator)
         {
-
+            mapGenerator.Invoke(this);
         }
-                
-        public void GenerateMap()
+        
+        public void SetTheGrid(int [,] newGrid)
         {
-            if (IsLeaf)
-            {
-                for (int x = 0; x < Width; x++)
-                {
-                    for (int y = 0; y < Height; y++)
-                    {
-                        Map.TheGrid[x + MapOffsetX, y + MapOffsetY] = 0;
-                    }
-                }
-            } else
-            {
-                LeftChild.GenerateMap();
-                RightChild.GenerateMap();
-            }
+            Map.SetTheGrid(newGrid);
         }
     }
 }

@@ -26,5 +26,10 @@ namespace MapGenerator
         {
             
         }
+
+        public void SetTheGrid(int [,] newGrid)
+        {
+            TheGrid = newGrid;
+        }
     }
 }

@@ -28,6 +28,8 @@ namespace MapGenerator
 
         public static Point lastCell { get; set; }
 
+        private static BSP.BSPMapNode Node { get; set; }
+
         #endregion
 
         static List<Point> Directions = new List<Point>()
@@ -40,15 +42,17 @@ namespace MapGenerator
 
         public DrunkCaveGenerator() { }
 
-        public static int[,] GenerateMap(int width = 30, int height = 30, int floorPercentage = 30)
+        public static void GenerateMap(BSP.BSPMapNode node, int width = 30, int height = 30, int floorPercentage = 30)
         {
+            Node = node;
+
             Width = width;
             Height = height;
             FloorPercentage = floorPercentage;
 
-            FillMap();
+            FillNode();
 
-            return TrimMap();
+            //TrimMap();
         }
 
         public static int[,] GenerateMap(int width = 30, int height = 30, int floorPercentage = 30, bool byHand = false)
@@ -67,6 +71,70 @@ namespace MapGenerator
                 FillMap();
                 return TrimMap();
             }
+        }
+
+        private static void FillNode()
+        {
+            TotalCells = Width * Height;
+
+            Map = Node.Map.TheGrid;
+            
+            var cell = new Point(random.Next(1, Width), random.Next(1, Height));
+
+            Map[cell.X, cell.Y] = FLOOR;
+            FloorCount = 1;
+
+            int newDirection;
+            var v = 0.0f;
+
+            do
+            {
+                newDirection = random.Next(0, 4);
+
+                if (Directions[newDirection].X < 0)
+                {
+                    if (cell.X + Directions[newDirection].X > 0)
+                    {
+                        cell.X = cell.X + Directions[newDirection].X;
+                    }
+                }
+
+                if (Directions[newDirection].X > 0)
+                {
+                    if (cell.X + Directions[newDirection].X < Width - 1)
+                    {
+                        cell.X = cell.X + Directions[newDirection].X;
+                    }
+                }
+
+                if (Directions[newDirection].Y < 0)
+                {
+                    if (cell.Y + Directions[newDirection].Y > 0)
+                    {
+                        cell.Y = cell.Y + Directions[newDirection].Y;
+                    }
+                }
+
+                if (Directions[newDirection].Y > 0)
+                {
+                    if (cell.Y + Directions[newDirection].Y < Height - 1)
+                    {
+                        cell.Y = cell.Y + Directions[newDirection].Y;
+                    }
+                }
+
+                if (Map[cell.X, cell.Y] == FLOOR)
+                {
+                    continue;
+                }
+
+                Map[cell.X + Node.MapOffsetX, cell.Y + Node.MapOffsetY] = FLOOR;
+                FloorCount++;
+                v = FloorCount / TotalCells * 100;
+
+            } while (v < FloorPercentage);
+
+            lastCell = cell;
         }
 
         private static void FillMap()
